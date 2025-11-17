@@ -1,0 +1,77 @@
+$icon-start-colors: (
+  "bug": #9f9f28,
+  "dark": #4f4747,
+  "dragon": #576fbc,
+  "electric": #dfbc28,
+  "fairy": #e18ce1,
+  "fighting": #e49021,
+  "fire": #e4613e,
+  "flying": #74aad0,
+  "ghost": #6f4570,
+  "grass": #439837,
+  "ground": #a4733c,
+  "ice": #fbfdfd,
+  "normal": #828282,
+  "poison": #9354cb,
+  "psychic": #e96c8c,
+  "rock": #a9a481,
+  "steel": #77b2cb,
+  "water": #3099e1,
+);
+
+$type-colors: (
+  "normal": #a8a878,
+  "fire": #f08030,
+  "water": #6890f0,
+  "grass": #78c850,
+  "electric": #f8d030,
+  "ice": #98d8d8,
+  "fighting": #c03028,
+  "poison": #a040a0,
+  "ground": #e0c068,
+  "flying": #a890f0,
+  "psychic": #f85888,
+  "bug": #a8b820,
+  "rock": #b8a038,
+  "ghost": #705898,
+  "dragon": #7038f8,
+  "dark": #705848,
+  "steel": #b8b8d0,
+  "fairy": #ee99ac,
+  "stellar": #44628d,
+  "unknown": #68a090,
+);
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 600;
+  text-transform: capitalize;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  color: #ffffff;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  }
+}
+
+@each $type, $color in $type-colors {
+  $start-color: map-get($icon-start-colors, $type);
+
+  @if $start-color {
+    .#{$type} {
+      background: linear-gradient(to right, $start-color, $color);
+      font-size: 25px;
+      font-weight: bold;
+      padding-right: 1rem;
+    }
+  }
+}
