@@ -9,3 +9,16 @@ export interface PokemonTypeResponse {
   previous: string | null;
   results: ApiResource[];
 }
+
+export interface PokemonType {
+  slot: number;
+  type: ApiResource;
+}
+
+export interface PokemonListItemDetail {
+  id: number;
+  name: string;
+  imageUrlNormal: string;
+  imageUrlShiny: string;
+  types: PokemonType[];
+}

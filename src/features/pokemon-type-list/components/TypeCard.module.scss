@@ -1,3 +1,4 @@
+@use "sass:map";
 $icon-start-colors: (
   "bug": #9f9f28,
   "dark": #4f4747,
@@ -64,7 +65,7 @@ $type-colors: (
 }
 
 @each $type, $color in $type-colors {
-  $start-color: map-get($icon-start-colors, $type);
+  $start-color: map.get($icon-start-colors, $type);
 
   @if $start-color {
     .#{$type} {
