@@ -1,9 +1,16 @@
 import type { AxiosResponse } from "axios";
 import { api } from "../../../shared/api/axiosInstance";
-import type { PokemonListItemDetail } from "../../../shared/types/pokemonTypes";
+import type {
+  PokemonListItemDetail,
+  ApiResource,
+} from "../../../shared/types/pokemonTypes";
 
 interface TypeDetailsResponse {
   pokemon: { pokemon: { url: string } }[];
+}
+
+interface AllPokemonListResponse {
+  results: ApiResource[];
 }
 
 interface PokemonDetailResponse {
@@ -33,13 +40,24 @@ interface PokemonDetailResponse {
 export const fetchPokemonByType = async (
   typeName: string
 ): Promise<PokemonListItemDetail[]> => {
-  const listResponse = await api.get<TypeDetailsResponse>(
-    `/type/${typeName.toLowerCase()}`
-  );
+  let detailUrls: string[] = [];
+  const lowerTypeName = typeName.toLowerCase();
 
-  const detailUrls: string[] = listResponse.data.pokemon.map(
-    (entry) => entry.pokemon.url
-  );
+  if (lowerTypeName === "all") {
+    const allListResponse = await api.get<AllPokemonListResponse>(
+      "/pokemon?limit=2000"
+    );
+
+    detailUrls = allListResponse.data.results.map((entry) => entry.url);
+  } else {
+    const typeListResponse = await api.get<TypeDetailsResponse>(
+      `/type/${lowerTypeName}`
+    );
+
+    detailUrls = typeListResponse.data.pokemon.map(
+      (entry) => entry.pokemon.url
+    );
+  }
 
   const detailPromises: Promise<AxiosResponse<PokemonDetailResponse>>[] =
     detailUrls.map((url) => api.get<PokemonDetailResponse>(url));

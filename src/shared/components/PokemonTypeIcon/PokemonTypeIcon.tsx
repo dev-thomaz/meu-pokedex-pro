@@ -1,5 +1,8 @@
 import styles from "./PokemonTypeIcon.module.scss";
 import type { SVGProps } from "react";
+import React from "react";
+
+import PokeballIcon from "../../assets/pokeball.png";
 
 import NormalIcon from "../../assets/icons/types/normal.svg?react";
 import FireIcon from "../../assets/icons/types/fire.svg?react";
@@ -50,8 +53,17 @@ interface PokemonTypeIconProps {
 }
 
 export const PokemonTypeIcon = ({ typeName }: PokemonTypeIconProps) => {
+  if (typeName === "all") {
+    return (
+      <img
+        src={PokeballIcon}
+        alt="All Types"
+        className={`${styles.icon} ${styles.pokeballIcon}`}
+      />
+    );
+  }
+
   const IconComponent = iconMap[typeName];
-  console.log(IconComponent);
 
   if (!IconComponent) {
     return null;

@@ -1,0 +1,516 @@
+.pageContainer {
+  position: relative;
+
+  height: 100vh;
+  overflow: hidden;
+
+  color: white;
+  isolation: isolate;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--type-gradient);
+    opacity: 0.5;
+    z-index: -1;
+  }
+}
+
+.scrollableContent {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding: 1rem;
+  padding-bottom: 4rem;
+
+  @media (max-width: 768px) {
+    overflow-x: auto;
+  }
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+  }
+}
+
+.imageWrapper {
+  position: relative;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    height: 300px;
+  }
+}
+
+.pokemonImage {
+  width: 400px;
+  height: 400px;
+  object-fit: contain;
+  position: relative;
+  z-index: 5;
+
+  @media (max-width: 768px) {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+@mixin star-base {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #fffbe6;
+
+  box-shadow: 0 0 6px 2px rgba(255, 247, 0, 0.8),
+    0 0 10px 4px rgba(255, 255, 255, 0.5);
+  opacity: 0;
+}
+
+.starOrbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.orbit1::before {
+  @include star-base;
+  top: -60px;
+  left: 0;
+}
+
+.orbit2 {
+  transform: rotate(45deg);
+  &::before {
+    @include star-base;
+    top: 0;
+    left: 80px;
+    width: 6px;
+    height: 6px;
+  }
+}
+
+.orbit3 {
+  transform: rotate(-30deg);
+  &::before {
+    @include star-base;
+    top: 50px;
+    left: -30px;
+  }
+}
+
+.triggerShine {
+  .orbit1 {
+    animation: spinOrbit 1s ease-in-out forwards;
+
+    &::before {
+      animation: starAppear 1s ease-in-out forwards;
+    }
+  }
+
+  .orbit2 {
+    animation: spinOrbit 1.2s ease-in-out 0.1s forwards;
+    &::before {
+      animation: starAppear 1.2s ease-in-out 0.1s forwards;
+    }
+  }
+
+  .orbit3 {
+    animation: spinOrbitReverse 1.1s ease-in-out 0.05s forwards;
+    &::before {
+      animation: starAppear 1.1s ease-in-out 0.05s forwards;
+    }
+  }
+}
+
+@keyframes spinOrbit {
+  0% {
+    transform: rotate(0deg) scale(0.5);
+  }
+  100% {
+    transform: rotate(360deg) scale(1.1);
+  }
+}
+
+@keyframes spinOrbitReverse {
+  0% {
+    transform: rotate(0deg) scale(0.5);
+  }
+  100% {
+    transform: rotate(-360deg) scale(1.1);
+  }
+}
+
+@keyframes starAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  50% {
+    transform: scale(0.8);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+.contentWrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  padding-top: 1rem;
+}
+
+.backLink {
+  color: #fff;
+  text-decoration: underline;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.infoBlock {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  backdrop-filter: blur(5px);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.category {
+  font-size: 1rem;
+  opacity: 0.8;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 1rem;
+}
+
+.nameTitle {
+  text-transform: capitalize;
+  font-size: 3rem;
+  margin: 0.5rem 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+  }
+}
+
+.nameId {
+  opacity: 0.6;
+  font-size: 1.5rem;
+}
+
+.typesContainer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.descriptionContainer {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.flavorText {
+  font-style: italic;
+  font-size: 1.1rem;
+  line-height: 1.6;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+}
+
+.voiceButton {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  padding: 8px 16px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  font-weight: bold;
+
+  &[data-speaking="false"] {
+    background: rgba(0, 0, 0, 0.3);
+  }
+  &[data-speaking="true"] {
+    background: #ff5555;
+  }
+}
+
+.basicInfoGrid {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.infoLabel {
+  opacity: 0.7;
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+.abilityList {
+  list-style: disc;
+  padding-left: 20px;
+}
+
+.abilityItem {
+  text-transform: capitalize;
+  margin-bottom: 0.5rem;
+}
+
+.hiddenAbility {
+  font-size: 0.8rem;
+  color: #aaa;
+}
+
+.encountersGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.encounterItem {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.locationName {
+  display: block;
+  text-transform: capitalize;
+  margin-bottom: 5px;
+}
+
+.versionDetails {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.versionTag {
+  font-size: 0.7rem;
+  background: #222;
+  color: #aaa;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: capitalize;
+}
+
+.noEncounters {
+  opacity: 0.7;
+}
+
+.gameIndices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.gameTag {
+  background: #333;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  text-transform: capitalize;
+}
+
+.evolutionContainer {
+  display: flex;
+  justify-content: center;
+  min-width: min-content;
+  padding: 10px 0;
+
+  @media (max-width: 768px) {
+    justify-content: flex-start;
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+      height: 6px;
+    }
+    &::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.2);
+    }
+    &::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 10px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.7);
+    }
+  }
+}
+
+.evolutionLink {
+  text-decoration: none;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 10px;
+  transition: transform 0.2s;
+  z-index: 10;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  @media (max-width: 768px) {
+    margin: 0 5px;
+  }
+}
+
+.evolutionImageWrapper {
+  width: 125px;
+  height: 125px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  padding: 5px;
+  border: 2px solid transparent;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  @media (max-width: 768px) {
+    width: 70px;
+    height: 70px;
+    padding: 3px;
+  }
+}
+
+.isCurrent {
+  border: 3px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.evolutionName {
+  margin-top: 5px;
+  font-size: 0.8rem;
+  text-transform: capitalize;
+  font-weight: bold;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.evolutionCondition {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 10px;
+  min-height: 40px;
+  justify-content: center;
+
+  .arrow {
+    font-size: 1.5rem;
+    opacity: 0.7;
+  }
+
+  .conditionText {
+    font-size: 0.7rem;
+    opacity: 0.9;
+    text-transform: capitalize;
+    max-width: 80px;
+    text-align: center;
+    line-height: 1;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 2px 4px;
+    border-radius: 4px;
+  }
+
+  @media (max-width: 768px) {
+    margin: 0 5px;
+
+    .arrow {
+      font-size: 1.2rem;
+    }
+
+    .conditionText {
+      font-size: 0.65rem;
+      max-width: 60px;
+      padding: 1px 3px;
+    }
+  }
+}
+
+.evolutionStages {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.evolutionSpokes {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-right: 10px;
+
+  &.isHub {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 700px;
+
+    @media (max-width: 768px) {
+      max-width: 100%;
+      gap: 5px;
+    }
+  }
+}
+
+.evolutionSpoke {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}

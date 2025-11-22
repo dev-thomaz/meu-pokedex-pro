@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.vertical {
+  flex-direction: column;
+
+  :global(.icon) {
+    width: 28px;
+    height: 28px;
+  }
+
+  .label {
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    color: white;
+  }
+}
+
+.horizontal {
+  flex-direction: row;
+  padding: 6px 12px;
+  border-radius: 20px;
+  color: currentColor;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  :global(.icon) {
+    width: 20px;
+    height: 20px;
+  }
+
+  .label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: capitalize;
+    letter-spacing: 0.5px;
+  }
+}

@@ -1,6 +1,7 @@
 import { AppRoutes } from "./AppRoutes";
 import PokeballWallpaper from "../shared/assets/Pokeball-wallpaper.jpg";
 import styles from "./App.module.scss";
+import AppHeader from "../shared/components/AppHeader/AppHeader";
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
       }}
     >
       <main className={styles.appContentContainer}>
-        <h1>PokéDex Pro</h1>
+        <AppHeader />
 
         <AppRoutes />
       </main>

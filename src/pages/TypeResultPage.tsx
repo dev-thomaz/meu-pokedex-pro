@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
 import { PokemonListByType } from "../features/pokemon-list-by-type";
-import SpriteToggle from "../features/sprite-toggle/SpriteToggle";
 
 const TypeResultPage = () => {
   const { typeName } = useParams<{ typeName: string }>();
@@ -12,7 +11,6 @@ const TypeResultPage = () => {
   return (
     <div>
       <h2>Pokémon do Tipo: {typeName.toUpperCase()}</h2>
-      <SpriteToggle />
       <PokemonListByType typeName={typeName} />
     </div>
   );

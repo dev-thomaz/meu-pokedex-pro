@@ -1,18 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import type { PokemonListItemDetail } from "../../types/pokemonTypes";
-import {
-  CARD_END_COLORS,
-  getCardBackground,
-  getTextColor,
-} from "../../utils/styleUtils";
+import { getCardBackground, getTextColor } from "../../utils/styleUtils";
 import { getSpriteUrl } from "../../utils/imageUtils";
 import { useGlobalSettingsStore } from "../../store/useGlobalSettingsStore";
 import styles from "./PokemonCardLink.module.scss";
-import { PokemonTypeIcon } from "../../components";
 
 import outlinePokeball from "../../assets/outline-pokeball.png";
-import shinyIcon from "../../assets/shiny-icon.png";
+import { PokemonTypeBadge } from "../PokemonTypeBadge/PokemonTypeBadge";
 interface PokemonCardLinkProps {
   pokemon: PokemonListItemDetail;
 }
@@ -76,24 +71,17 @@ const PokemonCardLink: React.FC<PokemonCardLinkProps> = ({ pokemon }) => {
         <h3 className={styles.name}>
           {pokemon.name}{" "}
           {isShinyFace && (
-            <img src={shinyIcon} className={styles.shinyIcon} alt="Shiny" />
+            <span style={{ fontSize: "0.8em", opacity: 0.8 }}>(Shiny)</span>
           )}
         </h3>
 
         <div className={styles.typeIcons}>
           {typeNames.map((typeName) => (
-            <div key={typeName} className={styles.typeItem}>
-              <PokemonTypeIcon typeName={typeName} />
-              <span
-                className={styles.typeNamePill}
-                style={{
-                  backgroundColor:
-                    CARD_END_COLORS[typeName.toLowerCase()] || "#ccc",
-                }}
-              >
-                {typeName}
-              </span>
-            </div>
+            <PokemonTypeBadge
+              key={typeName}
+              typeName={typeName}
+              layout="vertical"
+            />
           ))}
         </div>
       </div>
